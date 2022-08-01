@@ -164,6 +164,23 @@ export default {
         this.$refs.password.focus();
       });
     },
+    // 获取图片验证码
+    getImgCode() {
+      this.$store.dispatch("user/getClientToken");
+    },
+    // 登录
+    async handleLogin() {
+      try {
+        this.loading = true;
+        await this.$refs.loginForm.validate(); //校验表单规则
+        this.$store.dispatch("user/getLogin", this.loginForm);
+        this.$router.push("/");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>
