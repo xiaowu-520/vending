@@ -174,7 +174,6 @@ export default {
         this.loading = true;
         await this.$refs.loginForm.validate(); //校验表单规则
         this.$store.dispatch("user/getLogin", this.loginForm);
-        this.$router.push("/");
       } catch (error) {
         console.log(error);
       } finally {
