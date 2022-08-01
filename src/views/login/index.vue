@@ -46,7 +46,6 @@
             name="password"
             tabindex="2"
             auto-complete="on"
-            @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
             <svg-icon
@@ -68,6 +67,7 @@
               type="text"
               tabindex="1"
               auto-complete="on"
+              @keyup.enter.native="handleLogin"
             />
             <img
               data-v-26affb70=""
