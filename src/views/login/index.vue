@@ -173,7 +173,7 @@ export default {
       try {
         this.loading = true;
         await this.$refs.loginForm.validate(); //校验表单规则
-        this.$store.dispatch("user/getLogin", this.loginForm);
+        await this.$store.dispatch("user/getLogin", this.loginForm);
       } catch (error) {
         console.log(error);
       } finally {
