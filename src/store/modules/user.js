@@ -6,6 +6,7 @@ export default {
   state: {
     imgCode:'', //验证码图片地址
     clientToken:'',  //验证码token
+    token:''
   },
   mutations: {
     // 存储验证码数据
@@ -13,9 +14,9 @@ export default {
       state.clientToken = payload
       state.imgCode = `http://localhost:8888/api/user-service/user/imageCode/${payload}`
     },
-    //获取登录状态是否成功
-    upDateSuccess(state,payload){
-      state.success = payload
+    //获取token
+    getUserToken(state,payload){
+      state.token = payload
     }
   },
   actions: {
@@ -23,14 +24,14 @@ export default {
     async getClientToken(context){
       try {
         const randomNum = Math.floor(Math.random() * 100)
-        const res =await imageCode(randomNum)        
+        await imageCode(randomNum)        
         // console.log(res);
         context.commit('upDatedClientToken',randomNum)
       } catch (error) {
         console.log(error);
       }
     },
-    //发起登录请求
+    //发起登录请求,获取token
     async getLogin(context,payload){
       try {
         const res = await login(payload.username,payload.password,payload.verificationCode,context.state.clientToken)
@@ -44,6 +45,7 @@ export default {
         } else {
           Message.error(res.data.msg);
         }
+        context.commit('getUserToken',res.data.token)
       } catch (error) {
         console.log(error);
       }
