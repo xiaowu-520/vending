@@ -17,13 +17,13 @@ router.beforeEach((to,from,next) => {
         //     store.dispatch('user/getUserInfo')
         // }
         // 是否进入登录页
-        // if(to.path === '/login'){
-        //     // 进入首页
-        //    return next()
-        // }else{
+        if(to.path === '/login'){
+            // 进入首页
+           return next('/')
+        }else{
             // 直接进入
             next() 
-        // }
+        }
     }else{
         // 未登录状态
         // 是否在白名单
