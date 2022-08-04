@@ -36,6 +36,7 @@ export default {
       try {
         const res = await login(payload.username,payload.password,payload.verificationCode,context.state.clientToken)
         console.log(res);
+        context.commit('getUserToken',res.data.token)
         if (res.data.success) {
           Message({
             message: "登录成功",
@@ -44,11 +45,14 @@ export default {
           router.push("/");
         } else {
           Message.error(res.data.msg);
-        }
-        context.commit('getUserToken',res.data.token)
+        }       
       } catch (error) {
         console.log(error);
       }
+    },
+    //退出登录
+    logout(context){      
+      context.commit('getUserToken')
     }
   }
 }

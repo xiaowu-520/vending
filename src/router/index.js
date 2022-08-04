@@ -46,13 +46,38 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
+      path: 'home',
+      name: 'home',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
+  },
+
+  {
+    path:'/task',
+    component:Layout,
+    redirect: '/task/business',
+    name: 'task',
+    meta: {
+      title: '工单管理',
+      icon: 'nested'
+    },
+    children:[
+      {
+        path: 'business',
+        component: () => import('@/views/task/business'),
+        name: 'business',
+        meta: { title: '运营工单' }
+      },
+      {
+        path: 'operation',
+        component: () => import('@/views/task/operation'),
+        name: 'operation',
+        meta: { title: '运维工单' }
+      }
+    ]
   },
 
   {
@@ -77,18 +102,7 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
+  
 
   {
     path: '/nested',
