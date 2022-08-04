@@ -1,6 +1,7 @@
 import {imageCode,login} from '@/api/user'
 import router from '@/router'
 import { Message } from 'element-ui';
+import { setTokenTime } from '@/utils/auth'
 export default {
   namespaced: true,
   state: {
@@ -37,6 +38,7 @@ export default {
         const res = await login(payload.username,payload.password,payload.verificationCode,context.state.clientToken)
         console.log(res);
         context.commit('getUserToken',res.data.token)
+        setTokenTime()
         if (res.data.success) {
           Message({
             message: "登录成功",

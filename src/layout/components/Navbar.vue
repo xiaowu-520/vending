@@ -18,7 +18,17 @@
       <el-row>
         <el-col :span="5">
           <div style="height: 60px; line-height: 60px">
-            <img src="@/assets/tx.png" alt="" style="vertical-align: middle" />
+            <img
+              src="https://img2.woyaogexing.com/2022/07/23/2293c07d0fcfcdc2!400x400.jpg"
+              alt=""
+              style="
+                vertical-align: middle;
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+              "
+              v-imgError="defaultImg"
+            />
           </div>
         </el-col>
         <el-col :span="14">
@@ -49,16 +59,22 @@
 import { mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      defaultImg:
+        "https://img2.woyaogexing.com/2022/07/23/2293c07d0fcfcdc2!400x400.jpg",
+    };
+  },
   components: {},
   computed: {
     ...mapGetters(["sidebar", "avatar"]),
   },
   methods: {
     async logout() {
-      console.log(1);
+      // console.log(1);
       await this.$store.dispatch("user/logout");
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`);
-      console.log(this.$route);
+      // console.log(this.$route);
       this.$router.push("/login");
     },
   },
