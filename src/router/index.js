@@ -1,5 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// 引入多个模块的规则
+import taskRouter from './modules/task'
+import nodeRouter from './modules/node'
+import vmRouter from './modules/vm'
+import userRouter from './modules/user'
+import skuRouter from './modules/sku'
+import policyRouter from './modules/policy'
+import orderRouter from './modules/order'
+import reportRouter from './modules/report'
+
 
 Vue.use(Router)
 
@@ -55,133 +65,20 @@ export const constantRoutes = [
     }]
   },
 
-  {
-    path:'/task',
-    component:Layout,
-    redirect: '/task/business',
-    name: 'task',
-    meta: {
-      title: '工单管理',
-      icon: 'nested'
-    },
-    children:[
-      {
-        path: 'business',
-        component: () => import('@/views/task/business'),
-        name: 'business',
-        meta: { title: '运营工单' }
-      },
-      {
-        path: 'operation',
-        component: () => import('@/views/task/operation'),
-        name: 'operation',
-        meta: { title: '运维工单' }
-      }
-    ]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
   
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+export const asyncRoutes = [
+  taskRouter,nodeRouter,vmRouter,userRouter,skuRouter,policyRouter,orderRouter,reportRouter
+]
+
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes: [...constantRoutes,...asyncRoutes]
 })
 
 const router = createRouter()
